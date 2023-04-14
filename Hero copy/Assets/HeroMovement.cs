@@ -13,6 +13,7 @@ public class HeroMovement : MonoBehaviour
 
     [SerializeField]
     public float kHeroSpeed;
+    public float kHeroMaxSpeed = 50.0f;
 
     [SerializeField]
     public float kHeroRotateSpeed;
@@ -70,6 +71,7 @@ public class HeroMovement : MonoBehaviour
             KeyBoardSettings();
         }
         Cooldown();
+        CheckBounds();
     }
 
     private void MouseSettings()
@@ -111,14 +113,14 @@ public class HeroMovement : MonoBehaviour
         transform.position += transform.up * (kHeroSpeed * Time.smoothDeltaTime);
 
         //adjust the speed using W and S
-        if(Input.GetKey(KeyCode.W))
+        if(Input.GetKey(KeyCode.W) && kHeroSpeed < kHeroMaxSpeed)
         {
-            kHeroSpeed += 1f;
+            kHeroSpeed += 0.2f;
         }
 
-        if(Input.GetKey(KeyCode.S))
+        if(Input.GetKey(KeyCode.S) && kHeroSpeed > -1*kHeroMaxSpeed)
         {
-            kHeroSpeed -= 1f;
+            kHeroSpeed -= 0.2f;
         }
 
         //rotate left or right using A and D or left and right arrows
@@ -141,6 +143,14 @@ public class HeroMovement : MonoBehaviour
         }
     }
 
+    private void CheckBounds()
+    {
+        Vector3 currentPosition = transform.position;
+        currentPosition.x = Mathf.Clamp(currentPosition.x, -150f, 150f);
+        currentPosition.y = Mathf.Clamp(currentPosition.y, -98f, 98f);
+        transform.position = currentPosition;
+    }
+
     private void EggSpawn()
     {
         //create a bullet at a position 
@@ -148,7 +158,7 @@ public class HeroMovement : MonoBehaviour
         Rigidbody2D eggrb = eggbullet.GetComponent<Rigidbody2D>();
 
         //put speed on the bullet
-        eggrb.velocity = 40f * eggSpawnPoint.up;
+        eggrb.velocity = ((kHeroSpeed + 40f) * eggSpawnPoint.up);
 
         //adjust the firerate
         nextFire = Time.time + firerate;
