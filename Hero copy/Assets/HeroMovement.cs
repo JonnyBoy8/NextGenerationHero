@@ -146,8 +146,19 @@ public class HeroMovement : MonoBehaviour
     private void CheckBounds()
     {
         Vector3 currentPosition = transform.position;
-        currentPosition.x = Mathf.Clamp(currentPosition.x, -150f, 150f);
-        currentPosition.y = Mathf.Clamp(currentPosition.y, -98f, 98f);
+        Vector3 viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+
+        float buffer = 0.01f; // buffer space around the edges of the camera view
+
+        Vector3 minViewportBounds = new Vector3(buffer, buffer, viewportPosition.z);
+        Vector3 maxViewportBounds = new Vector3(1 - buffer, 1 - buffer, viewportPosition.z);
+
+        Vector3 minWorldBounds = Camera.main.ViewportToWorldPoint(minViewportBounds);
+        Vector3 maxWorldBounds = Camera.main.ViewportToWorldPoint(maxViewportBounds);
+
+        currentPosition.x = Mathf.Clamp(currentPosition.x, minWorldBounds.x, maxWorldBounds.x);
+        currentPosition.y = Mathf.Clamp(currentPosition.y, minWorldBounds.y, maxWorldBounds.y);
+
         transform.position = currentPosition;
     }
 
