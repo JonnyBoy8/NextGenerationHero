@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HeroMovement : MonoBehaviour
 {
+    //posiiton variable
     Vector3 pos;
 
     //game always starts in mouse mode
@@ -19,7 +20,7 @@ public class HeroMovement : MonoBehaviour
     public Transform eggSpawnPoint;
     public GameObject eggPrefab;
 
-    //frame rate set to 0.2 
+    //fire rate set to 0.2 
     public float firerate = 0.2f;
     public float nextFire = 0f;
 
@@ -157,6 +158,7 @@ public class HeroMovement : MonoBehaviour
         }
     }
 
+    //pretty sure not needed
     private void OnTriggerStay2D(Collider2D hitinfo)
     {
         if(hitinfo.name == "Plane")

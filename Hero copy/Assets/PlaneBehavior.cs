@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlaneBehavior : MonoBehaviour
 {
-    //if collides with a hero
     private void OnTriggerEnter2D(Collider2D hitinfo)
     {
+        //if collides with a hero
         if(hitinfo.name == "Hero")
         {
             Destroy(gameObject);
@@ -21,6 +21,7 @@ public class PlaneBehavior : MonoBehaviour
         }
     }
 
+    //just in case the plane isnt destroyed on first hit, doesnt get called
     private void OnTriggerStay2D(Collider2D hitinfo)
     {
         if(hitinfo.name == "Hero")
@@ -33,6 +34,8 @@ public class PlaneBehavior : MonoBehaviour
     {
         //get plane color 
         SpriteRenderer enemy = GetComponent<SpriteRenderer>();
+
+        //set plane color to the color variable to get modified
         Color current_color = enemy.color;
 
         //adjust the alpha by .8 (80%)

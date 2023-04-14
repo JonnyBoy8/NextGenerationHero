@@ -11,7 +11,7 @@ public class EggBehavior : MonoBehaviour
 
     void Update()
     {
-        //continously check if the bullet will hit the bounds
+        //continously check if the bullet hit the world bounds
         if (GlobalBehavior.sTheGlobalBehavior.ObjectCollideWorldBound(GetComponent<Renderer>().bounds) == GlobalBehavior.WorldBoundStatus.Outside)
         {
             Destroy(gameObject); 
