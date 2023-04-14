@@ -215,7 +215,7 @@ public class GlobalBehavior : MonoBehaviour
         float y = Random.Range(mWorldMin.y, mWorldMax.y);
 
         //create a position of the plane
-        Vector2 poistion = new Vector2(x, y);
+        Vector2 poistion = new Vector2(0.9f*x, 0.9f*y);
 
         //create a plane at that location
         GameObject new_plane = Instantiate(planePrefab, poistion, Quaternion.identity);
