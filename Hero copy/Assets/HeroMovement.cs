@@ -118,7 +118,7 @@ public class HeroMovement : MonoBehaviour
             kHeroSpeed += 0.2f;
         }
 
-        if(Input.GetKey(KeyCode.S) && kHeroSpeed > -1*kHeroMaxSpeed)
+        if(Input.GetKey(KeyCode.S) && kHeroSpeed > -0.25*kHeroMaxSpeed)
         {
             kHeroSpeed -= 0.2f;
         }
