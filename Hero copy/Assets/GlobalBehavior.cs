@@ -45,6 +45,12 @@ public class GlobalBehavior : MonoBehaviour
         {
             CreatePlane();
         }
+
+        //spawns the checkpoints into the game
+        for(int i = 0; i < 6; i++)
+        {
+            CreateCheckpoint();
+        }
     }
 
     public enum WorldBoundStatus {
@@ -220,5 +226,10 @@ public class GlobalBehavior : MonoBehaviour
         //create a plane at that location
         GameObject new_plane = Instantiate(planePrefab, poistion, Quaternion.identity);
         IncreaseEnemyCountUI();
+    }
+
+    public void CreateCheckpoint()
+    {
+        //TODO: CREATE THE CORRECT TYPE OF CHECKPOINT 
     }
 }

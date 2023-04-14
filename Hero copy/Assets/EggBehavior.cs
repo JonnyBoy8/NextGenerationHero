@@ -27,5 +27,10 @@ public class EggBehavior : MonoBehaviour
             Destroy(gameObject);
             GlobalBehavior.sTheGlobalBehavior.DecreaseEggCountUI();
         }
+        else if(hitinfo.tag == "Checkpoint")
+        {
+            Destroy(gameObject);
+            GlobalBehavior.sTheGlobalBehavior.DecreaseEggCountUI();
+        }
     }
 }
