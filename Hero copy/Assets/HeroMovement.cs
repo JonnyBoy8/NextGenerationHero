@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroMovement : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class HeroMovement : MonoBehaviour
     public float firerate = 0.2f;
     public float nextFire = 0f;
 
+    public Slider cooldownBar;
+    public  float cooldownDuration = 0.2f;
+    public float cooldownCurrent = 0f;
+
     void Start()
     {
         Debug.Log("mouse mode");
@@ -32,7 +37,7 @@ public class HeroMovement : MonoBehaviour
     void Update()
     {
         //Quit the application
-        if(Input.GetKey("q"))
+        if (Input.GetKey("q"))
         {
             Application.Quit();
         }
@@ -64,6 +69,7 @@ public class HeroMovement : MonoBehaviour
 
             KeyBoardSettings();
         }
+        Cooldown();
     }
 
     private void MouseSettings()
@@ -84,6 +90,7 @@ public class HeroMovement : MonoBehaviour
             if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
             {
                 EggSpawn();
+                cooldownCurrent = 0;
             }
 
         //switch from mousemode to keyboard mode
@@ -92,7 +99,7 @@ public class HeroMovement : MonoBehaviour
                 KeyBoardMode = true;
                 Debug.Log("Switching to Keyboard Mode");
                 GlobalBehavior.sTheGlobalBehavior.UpdateToKeyboardUI();
-                return;
+                return; 
         }
     }
 
@@ -121,6 +128,7 @@ public class HeroMovement : MonoBehaviour
         if((Input.GetKey(KeyCode.Space)) && Time.time > nextFire)
         {
             EggSpawn();
+            cooldownCurrent = 0;
         }
 
         //swicth from keyboard mode to mouse mode
@@ -147,6 +155,13 @@ public class HeroMovement : MonoBehaviour
 
         //update the UI
         GlobalBehavior.sTheGlobalBehavior.IncreaseEggCountUI();
+    }
+
+    void Cooldown()
+    {
+        cooldownCurrent += Time.deltaTime;
+        cooldownCurrent = Mathf.Clamp(cooldownCurrent, 0.0f, cooldownDuration);
+        cooldownBar.value = cooldownCurrent;
     }
 
     //Pretty sure not needed
