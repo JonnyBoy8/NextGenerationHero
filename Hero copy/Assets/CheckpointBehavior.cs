@@ -41,9 +41,11 @@ public class CheckpointBehavior : MonoBehaviour
 
         if(checkpoint.color.a <= 0.0f)
         {
-            Destroy(gameObject);
-
             //TODO: SPAWN THE CORRECT CHECKPOINT BACK IN
+            string checkpoint_name = checkpoint.name;
+            GlobalBehavior.sTheGlobalBehavior.SpawnNewCheckpoint(checkpoint_name);
+
+            Destroy(gameObject);
         }
     }
 }

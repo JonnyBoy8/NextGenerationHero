@@ -30,6 +30,21 @@ public class GlobalBehavior : MonoBehaviour
     private Vector2 mWorldCenter;
     private Camera mMainCamera;
 
+    //waypoint code
+    public GameObject checkpoint_aPrefab;
+    public GameObject checkpoint_bPrefab;
+    public GameObject checkpoint_cPrefab;
+    public GameObject checkpoint_dPrefab;
+    public GameObject checkpoint_ePrefab;
+    public GameObject checkpoint_fPrefab;
+
+    private Vector2 checkpoint_aPrevLocation = new Vector2(0f, 0f);
+    private Vector2 checkpoint_bPrevLocation = new Vector2(0f, 0f);
+    private Vector2 checkpoint_cPrevLocation = new Vector2(0f, 0f);
+    private Vector2 checkpoint_dPrevLocation = new Vector2(0f, 0f);
+    private Vector2 checkpoint_ePrevLocation = new Vector2(0f, 0f);
+    private Vector2 checkpoint_fPrevLocation = new Vector2(0f, 0f);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,11 +61,7 @@ public class GlobalBehavior : MonoBehaviour
             CreatePlane();
         }
 
-        //spawns the checkpoints into the game
-        for(int i = 0; i < 6; i++)
-        {
-            CreateCheckpoint();
-        }
+        SpawnFirstCheckpoints();
     }
 
     public enum WorldBoundStatus {
@@ -228,8 +239,127 @@ public class GlobalBehavior : MonoBehaviour
         IncreaseEnemyCountUI();
     }
 
-    public void CreateCheckpoint()
+    //ONLY USED AT START OF GLOBAL BEHAVIOR
+    //spawns in the locations of the checkpoints
+    private void SpawnFirstCheckpoints()
     {
-        //TODO: CREATE THE CORRECT TYPE OF CHECKPOINT 
+        //SPAWN CHECKPOINT A
+        //find the bound
+        float x = Random.Range(mWorldMin.x, mWorldMax.x);
+        float y = Random.Range(mWorldMin.y, mWorldMax.y);
+
+        //create a position of the plane
+        Vector2 poistion = new Vector2(0.9f*x, 0.9f*y);
+        checkpoint_aPrevLocation = poistion;
+
+        //create a plane at that location
+        GameObject new_plane = Instantiate(checkpoint_aPrefab, poistion, Quaternion.identity);  
+
+        //SPAWN CHECKPOINT B
+        //find the bound
+        x = Random.Range(mWorldMin.x, mWorldMax.x);
+        y = Random.Range(mWorldMin.y, mWorldMax.y);
+
+        //create a position of the plane
+        poistion = new Vector2(0.9f*x, 0.9f*y);
+        checkpoint_bPrevLocation = poistion;
+
+        //create a plane at that location
+        new_plane = Instantiate(checkpoint_bPrefab, poistion, Quaternion.identity); 
+
+        //SPAWN CHECKPOINT C
+        //find the bound
+        x = Random.Range(mWorldMin.x, mWorldMax.x);
+        y = Random.Range(mWorldMin.y, mWorldMax.y);
+
+        //create a position of the plane
+        poistion = new Vector2(0.9f*x, 0.9f*y);
+        checkpoint_cPrevLocation = poistion;
+
+        //create a plane at that location
+        new_plane = Instantiate(checkpoint_cPrefab, poistion, Quaternion.identity); 
+
+        //SPAWN CHECKPOINT D
+        //find the bound
+        x = Random.Range(mWorldMin.x, mWorldMax.x);
+        y = Random.Range(mWorldMin.y, mWorldMax.y);
+
+        //create a position of the plane
+        poistion = new Vector2(0.9f*x, 0.9f*y);
+        checkpoint_dPrevLocation = poistion;
+
+        //create a plane at that location
+        new_plane = Instantiate(checkpoint_dPrefab, poistion, Quaternion.identity); 
+
+        //SPAWN CHECKPOINT E
+        //find the bound
+        x = Random.Range(mWorldMin.x, mWorldMax.x);
+        y = Random.Range(mWorldMin.y, mWorldMax.y);
+
+        //create a position of the plane
+        poistion = new Vector2(0.9f*x, 0.9f*y);
+        checkpoint_ePrevLocation = poistion;
+
+        //create a plane at that location
+        new_plane = Instantiate(checkpoint_ePrefab, poistion, Quaternion.identity); 
+
+        //SPAWN CHECKPOINT F
+        //find the bound
+        x = Random.Range(mWorldMin.x, mWorldMax.x);
+        y = Random.Range(mWorldMin.y, mWorldMax.y);
+
+        //create a position of the plane
+        poistion = new Vector2(0.9f*x, 0.9f*y);
+        checkpoint_fPrevLocation = poistion;
+
+        //create a plane at that location
+        new_plane = Instantiate(checkpoint_fPrefab, poistion, Quaternion.identity); 
+    }
+
+    //takes in the name of the destroyed sprite, then spawns a new one +- 15
+    public void SpawnNewCheckpoint(string name)
+    {
+        if(name == "CheckpointA(Clone)")
+        {
+            Vector2 new_position = new Vector2(checkpoint_aPrevLocation.x + 2f, checkpoint_aPrevLocation.y + 2f);
+            checkpoint_aPrevLocation = new_position;
+
+            GameObject new_checkpoint = Instantiate(checkpoint_aPrefab, new_position, Quaternion.identity);
+        }
+        else if(name == "CheckpointB(Clone)")
+        {
+            Vector2 new_position = new Vector2(checkpoint_bPrevLocation.x + 2f, checkpoint_bPrevLocation.y + 2f);
+            checkpoint_bPrevLocation = new_position;
+
+            GameObject new_checkpoint = Instantiate(checkpoint_bPrefab, new_position, Quaternion.identity);
+        }
+        else if(name == "CheckpointC(Clone)")
+        {
+            Vector2 new_position = new Vector2(checkpoint_cPrevLocation.x + 2f, checkpoint_cPrevLocation.y + 2f);
+            checkpoint_cPrevLocation = new_position;
+
+            GameObject new_checkpoint = Instantiate(checkpoint_cPrefab, new_position, Quaternion.identity);
+        }
+        else if(name == "CheckpointD(Clone)")
+        {
+            Vector2 new_position = new Vector2(checkpoint_dPrevLocation.x + 2f, checkpoint_dPrevLocation.y + 2f);
+            checkpoint_dPrevLocation = new_position;
+
+            GameObject new_checkpoint = Instantiate(checkpoint_dPrefab, new_position, Quaternion.identity);
+        }
+        else if(name == "CheckpointE(Clone)")
+        {
+            Vector2 new_position = new Vector2(checkpoint_ePrevLocation.x + 2f, checkpoint_ePrevLocation.y + 2f);
+            checkpoint_ePrevLocation = new_position;
+
+            GameObject new_checkpoint = Instantiate(checkpoint_ePrefab, new_position, Quaternion.identity);
+        }
+        else if(name == "CheckpointF(Clone)")
+        {
+            Vector2 new_position = new Vector2(checkpoint_fPrevLocation.x + 2f, checkpoint_fPrevLocation.y + 2f);
+            checkpoint_fPrevLocation = new_position;
+
+            GameObject new_checkpoint = Instantiate(checkpoint_fPrefab, new_position, Quaternion.identity);
+        }
     }
 }
