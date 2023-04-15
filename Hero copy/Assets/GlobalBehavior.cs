@@ -45,6 +45,9 @@ public class GlobalBehavior : MonoBehaviour
     private Vector2 checkpoint_ePrevLocation = new Vector2(0f, 0f);
     private Vector2 checkpoint_fPrevLocation = new Vector2(0f, 0f);
 
+    //array to hold waypoints
+    GameObject[] waypoints;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +65,9 @@ public class GlobalBehavior : MonoBehaviour
         }
 
         SpawnFirstCheckpoints();
+
+        //fill the array with waypoints at first start
+        waypoints = GameObject.FindGameObjectsWithTag("Checkpoint");
     }
 
     public enum WorldBoundStatus {
@@ -336,6 +342,31 @@ public class GlobalBehavior : MonoBehaviour
             checkpoint_fPrevLocation = new_position;
 
             GameObject new_checkpoint = Instantiate(checkpoint_fPrefab, new_position, Quaternion.identity);
+        }
+    }
+
+    public void DisableWayPoints()
+    {
+        //update the waypoint array before deactivation
+        waypoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+
+        Debug.Log("disable");
+
+        foreach (GameObject waypoint in waypoints)
+        {
+            waypoint.SetActive(false);
+        }
+    }
+
+    public void EnableWayPoints()
+    {
+
+        Debug.Log("enable");
+
+        //reactivate each waypoint present in the waypoints array
+        foreach (GameObject waypoint in waypoints)
+        {
+            waypoint.SetActive(true);
         }
     }
 
