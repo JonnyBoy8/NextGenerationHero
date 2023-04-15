@@ -11,6 +11,9 @@ public class HeroMovement : MonoBehaviour
     //game always starts in mouse mode
     public bool KeyBoardMode = false;
 
+    //game starts in waypoints shown
+    public bool WayPointsShown = true;
+
     [SerializeField]
     public float kHeroSpeed;
     public float kHeroMaxSpeed = 50.0f;
@@ -41,6 +44,20 @@ public class HeroMovement : MonoBehaviour
         if (Input.GetKey("q"))
         {
             Application.Quit();
+        }
+
+        if(Input.GetKeyDown("h"))
+        {
+            if(WayPointsShown)//if waypoints are currenlty being shown
+            {
+                GlobalBehavior.sTheGlobalBehavior.DisableWayPoints();
+                WayPointsShown = false;
+            }
+            else
+            {
+                GlobalBehavior.sTheGlobalBehavior.EnableWayPoints();
+                WayPointsShown = true;
+            }
         }
 
         //If in mouse mode go here
