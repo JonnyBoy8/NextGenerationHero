@@ -90,7 +90,17 @@ public class PlaneBehavior : MonoBehaviour
 
     bool IsInsideWorldBounds(Vector3 position)
     {
-        return position.x >= -90f && position.x <= 90f && position.y >= -90f && position.y <= 90f;
+        Camera mainCamera = Camera.main;
+        float buffer = 5.0f; // add a buffer to the camera bounds
+
+        // get the camera bounds in world space
+        float cameraLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane)).x + buffer;
+        float cameraRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, mainCamera.nearClipPlane)).x - buffer;
+        float cameraBottom = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane)).y + buffer;
+        float cameraTop = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, mainCamera.nearClipPlane)).y - buffer;
+
+        // check if the position is within the camera bounds
+        return position.x >= cameraLeft && position.x <= cameraRight && position.y >= cameraBottom && position.y <= cameraTop;
     }
 
     Vector3 GetRandomDirectionWithinWorldBounds()
