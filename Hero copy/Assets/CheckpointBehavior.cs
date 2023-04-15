@@ -23,7 +23,6 @@ public class CheckpointBehavior : MonoBehaviour
         {
             //TODO: NEED TO REIMPLEMENT. COMMENTED OUT FOR TESTING PURPOSES
             //Destroy(GameObject);
-            Debug.Log("CHECKPOINT BEHAVIOR: Hero hit checkpoint");
         }
         else if(hitinfo.name == "Egg(Clone)")//if it gets hit by anything else (an egg), adjust the color
         {

@@ -244,72 +244,48 @@ public class GlobalBehavior : MonoBehaviour
     private void SpawnFirstCheckpoints()
     {
         //SPAWN CHECKPOINT A
-        //find the bound
-        float x = Random.Range(mWorldMin.x, mWorldMax.x);
-        float y = Random.Range(mWorldMin.y, mWorldMax.y);
-
         //create a position of the plane
-        Vector2 poistion = new Vector2(0.9f*x, 0.9f*y);
+        Vector2 poistion = new Vector2(mWorldMin.x / 2f, mWorldMax.y / 2f);
         checkpoint_aPrevLocation = poistion;
 
         //create a plane at that location
         GameObject new_plane = Instantiate(checkpoint_aPrefab, poistion, Quaternion.identity);  
 
         //SPAWN CHECKPOINT B
-        //find the bound
-        x = Random.Range(mWorldMin.x, mWorldMax.x);
-        y = Random.Range(mWorldMin.y, mWorldMax.y);
-
         //create a position of the plane
-        poistion = new Vector2(0.9f*x, 0.9f*y);
+        poistion = new Vector2(mWorldMax.x / 2f, mWorldMin.y / 2f);
         checkpoint_bPrevLocation = poistion;
 
         //create a plane at that location
         new_plane = Instantiate(checkpoint_bPrefab, poistion, Quaternion.identity); 
 
         //SPAWN CHECKPOINT C
-        //find the bound
-        x = Random.Range(mWorldMin.x, mWorldMax.x);
-        y = Random.Range(mWorldMin.y, mWorldMax.y);
-
         //create a position of the plane
-        poistion = new Vector2(0.9f*x, 0.9f*y);
+        poistion = new Vector2(mWorldMax.x / 4f, 0f);
         checkpoint_cPrevLocation = poistion;
 
         //create a plane at that location
         new_plane = Instantiate(checkpoint_cPrefab, poistion, Quaternion.identity); 
 
         //SPAWN CHECKPOINT D
-        //find the bound
-        x = Random.Range(mWorldMin.x, mWorldMax.x);
-        y = Random.Range(mWorldMin.y, mWorldMax.y);
-
         //create a position of the plane
-        poistion = new Vector2(0.9f*x, 0.9f*y);
+        poistion = new Vector2(mWorldMin.x / 2f, mWorldMin.y / 2f);
         checkpoint_dPrevLocation = poistion;
 
         //create a plane at that location
         new_plane = Instantiate(checkpoint_dPrefab, poistion, Quaternion.identity); 
 
         //SPAWN CHECKPOINT E
-        //find the bound
-        x = Random.Range(mWorldMin.x, mWorldMax.x);
-        y = Random.Range(mWorldMin.y, mWorldMax.y);
-
         //create a position of the plane
-        poistion = new Vector2(0.9f*x, 0.9f*y);
+        poistion = new Vector2(mWorldMax.x / 2f, mWorldMax.y / 2f);
         checkpoint_ePrevLocation = poistion;
 
         //create a plane at that location
         new_plane = Instantiate(checkpoint_ePrefab, poistion, Quaternion.identity); 
 
         //SPAWN CHECKPOINT F
-        //find the bound
-        x = Random.Range(mWorldMin.x, mWorldMax.x);
-        y = Random.Range(mWorldMin.y, mWorldMax.y);
-
         //create a position of the plane
-        poistion = new Vector2(0.9f*x, 0.9f*y);
+        poistion = new Vector2(mWorldMin.x / 4f, 0f);
         checkpoint_fPrevLocation = poistion;
 
         //create a plane at that location
