@@ -1,4 +1,0 @@
-[user]
-	name = Jesse Owens
-	email = Jrowens@uw.edu
-	username = SpectreOneTwo
