@@ -321,45 +321,63 @@ public class GlobalBehavior : MonoBehaviour
     {
         if(name == "CheckpointA(Clone)")
         {
-            Vector2 new_position = new Vector2(checkpoint_aPrevLocation.x + 2f, checkpoint_aPrevLocation.y + 2f);
+            Vector2 new_position = new Vector2(checkpoint_aPrevLocation.x + RandomGenerator(), checkpoint_aPrevLocation.y + RandomGenerator());
             checkpoint_aPrevLocation = new_position;
 
             GameObject new_checkpoint = Instantiate(checkpoint_aPrefab, new_position, Quaternion.identity);
         }
         else if(name == "CheckpointB(Clone)")
         {
-            Vector2 new_position = new Vector2(checkpoint_bPrevLocation.x + 2f, checkpoint_bPrevLocation.y + 2f);
+            Vector2 new_position = new Vector2(checkpoint_bPrevLocation.x + RandomGenerator(), checkpoint_bPrevLocation.y + RandomGenerator());
             checkpoint_bPrevLocation = new_position;
 
             GameObject new_checkpoint = Instantiate(checkpoint_bPrefab, new_position, Quaternion.identity);
         }
         else if(name == "CheckpointC(Clone)")
         {
-            Vector2 new_position = new Vector2(checkpoint_cPrevLocation.x + 2f, checkpoint_cPrevLocation.y + 2f);
+            Vector2 new_position = new Vector2(checkpoint_cPrevLocation.x + RandomGenerator(), checkpoint_cPrevLocation.y + RandomGenerator());
             checkpoint_cPrevLocation = new_position;
 
             GameObject new_checkpoint = Instantiate(checkpoint_cPrefab, new_position, Quaternion.identity);
         }
         else if(name == "CheckpointD(Clone)")
         {
-            Vector2 new_position = new Vector2(checkpoint_dPrevLocation.x + 2f, checkpoint_dPrevLocation.y + 2f);
+            Vector2 new_position = new Vector2(checkpoint_dPrevLocation.x + RandomGenerator(), checkpoint_dPrevLocation.y + RandomGenerator());
             checkpoint_dPrevLocation = new_position;
 
             GameObject new_checkpoint = Instantiate(checkpoint_dPrefab, new_position, Quaternion.identity);
         }
         else if(name == "CheckpointE(Clone)")
         {
-            Vector2 new_position = new Vector2(checkpoint_ePrevLocation.x + 2f, checkpoint_ePrevLocation.y + 2f);
+            Vector2 new_position = new Vector2(checkpoint_ePrevLocation.x + RandomGenerator(), checkpoint_ePrevLocation.y + RandomGenerator());
             checkpoint_ePrevLocation = new_position;
 
             GameObject new_checkpoint = Instantiate(checkpoint_ePrefab, new_position, Quaternion.identity);
         }
         else if(name == "CheckpointF(Clone)")
         {
-            Vector2 new_position = new Vector2(checkpoint_fPrevLocation.x + 2f, checkpoint_fPrevLocation.y + 2f);
+            Vector2 new_position = new Vector2(checkpoint_fPrevLocation.x + RandomGenerator(), checkpoint_fPrevLocation.y + RandomGenerator());
             checkpoint_fPrevLocation = new_position;
 
             GameObject new_checkpoint = Instantiate(checkpoint_fPrefab, new_position, Quaternion.identity);
         }
+    }
+
+    private float RandomGenerator()
+    {
+        int decider_num = Random.Range(0, 2);
+
+        if(decider_num == 0)
+        {
+            Debug.Log("-15");
+            return -15f;
+        }
+        else
+        {
+            Debug.Log("15");
+            return 15f;
+        }
+
+
     }
 }
