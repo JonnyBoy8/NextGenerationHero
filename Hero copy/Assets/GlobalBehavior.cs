@@ -374,28 +374,28 @@ public class GlobalBehavior : MonoBehaviour
 
         //check if in bounds
         //if the new x coordinate is bigger than max x
-        if(prev_positionx + random_x >= mWorldMax.x)
+        if(prev_positionx + random_x >= 0.8*mWorldMax.x)
         {
             Debug.Log("new x: " + random_x);
             random_x = -15f;
         }
 
         //if the new x coordinate is less than min x
-        if(prev_positionx + random_x <= mWorldMin.x)
+        if(prev_positionx + random_x <= 0.8*mWorldMin.x)
         {
             Debug.Log("new x: " + random_x);
             random_x = 15f;
         }
 
         //if the new y coordinate is bigger than max y
-        if(prev_positiony + random_y >= mWorldMax.y)
+        if(prev_positiony + random_y >= 0.8*mWorldMax.y)
         {
             Debug.Log("new y: " + random_y);
             random_y = -15f;
         }
 
         //if the new y coordinate is less than min y
-        if(prev_positiony + random_y <= mWorldMin.y)
+        if(prev_positiony + random_y <= 0.8*mWorldMin.y)
         {
             Debug.Log("new y: " + random_y);
             random_y = 15f;
