@@ -127,6 +127,7 @@ public class PlaneBehavior : MonoBehaviour
         return direction;
     }
 
+    //Moves to Nearest Checkpoint from spawn
     private void MoveToNearestCheckpoint(GameObject plane, GlobalBehavior globalBehavior)
     {
         // Get the current position of the plane
@@ -156,5 +157,11 @@ public class PlaneBehavior : MonoBehaviour
             Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
             plane.transform.position = newPosition;
         }
+    }
+
+    //Moves to next checkpoint in waypoints array.
+    private void MoveToNextCheckpoint(GameObject plane, GlobalBehavior globalBehavior)
+    {
+
     }
 }
