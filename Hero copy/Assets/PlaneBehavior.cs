@@ -9,6 +9,8 @@ public class PlaneBehavior : MonoBehaviour
     public bool moveAroundBoundary = false;
     public bool moveToNearestCheckpoint = true;
 
+    private bool RandomMode = false;
+
     private GlobalBehavior globalBehavior;
 
     //create new waypoints array to hold waypoints in
@@ -35,6 +37,20 @@ public class PlaneBehavior : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown("j"))
+        {
+            if(!RandomMode)//if randommode is false/off
+            {
+                RandomMode = true;
+                Debug.Log("random mode on");
+            }
+            else//then randommode is on
+            {
+                RandomMode = false;
+                Debug.Log("random mode off");
+            }
+        }
+
         HandleInput();
         Move();
         MoveToNearestCheckpoint();
@@ -200,6 +216,8 @@ public class PlaneBehavior : MonoBehaviour
     //Moves to next checkpoint in waypoints array.
     private void MoveToNextCheckpoint()
     {
+        //initilize the variable
+        int nextCheckpointIndex = 0;
         //Debug.Log("1. Current Checkpoint: " + currentCheckpoint);
         // Get the current position of the plane
         Vector3 planePos = transform.position;
@@ -207,7 +225,14 @@ public class PlaneBehavior : MonoBehaviour
         //Debug.Log("2. Current Checkpoint Index: " + currentCheckpointIndex);
 
         // Move to the next checkpoint
-        int nextCheckpointIndex = (currentCheckpointIndex + 1);
+        if(!RandomMode)//if random mode is off
+        {
+            nextCheckpointIndex = (currentCheckpointIndex + 1);
+        }
+        else //then random mode is on
+        {
+            nextCheckpointIndex = RandomIndex();
+        }
         
         if (nextCheckpointIndex >= waypoints.Length)
         {
@@ -226,7 +251,15 @@ public class PlaneBehavior : MonoBehaviour
         if (Vector3.Distance(transform.position, nextCheckpoint.transform.position) < 0.1f)
         {
             // Move to the next checkpoint
-            currentCheckpointIndex++;
+            // Move to the next checkpoint
+            if(!RandomMode)
+            {
+                currentCheckpointIndex++;
+            }
+            else
+            {
+                currentCheckpointIndex = RandomIndex();
+            }
 
             if (currentCheckpointIndex >= waypoints.Length)
             {
@@ -248,6 +281,11 @@ public class PlaneBehavior : MonoBehaviour
     private void ToggleMovement()
     {
         moveAroundBoundary = !moveAroundBoundary;
-        
+    }
+
+    private int RandomIndex()
+    {
+        int result = UnityEngine.Random.Range(0,6);
+        return result;
     }
 }
