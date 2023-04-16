@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlaneBehavior : MonoBehaviour
 {
-    public float speed = 10.0f;
+    public float speed = 20.0f;
     public bool moveAroundBoundary = false;
     public bool moveToNearestCheckpoint = true;
 
@@ -94,7 +94,6 @@ public class PlaneBehavior : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            
             ToggleMovement();
         }
 
@@ -102,7 +101,6 @@ public class PlaneBehavior : MonoBehaviour
         {
             
         }
-
     }
 
     public void Move()
