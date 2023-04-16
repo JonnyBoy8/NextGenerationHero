@@ -274,42 +274,42 @@ public class GlobalBehavior : MonoBehaviour
     {
         if(name == "CheckpointA")
         {
-            Vector2 new_position = new Vector2(checkpoint_aPrevLocation.x + RandomGenerator(), checkpoint_aPrevLocation.y + RandomGenerator());
+            Vector2 new_position = RandomGenerator(checkpoint_aPrevLocation.x, checkpoint_aPrevLocation.y);
             checkpoint_aPrevLocation = new_position;
 
             checkpoint_aPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointB")
         {
-            Vector2 new_position = new Vector2(checkpoint_bPrevLocation.x + RandomGenerator(), checkpoint_bPrevLocation.y + RandomGenerator());
+            Vector2 new_position = RandomGenerator(checkpoint_bPrevLocation.x, checkpoint_bPrevLocation.y);
             checkpoint_bPrevLocation = new_position;
 
             checkpoint_bPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointC")
         {
-            Vector2 new_position = new Vector2(checkpoint_cPrevLocation.x + RandomGenerator(), checkpoint_cPrevLocation.y + RandomGenerator());
+            Vector2 new_position = RandomGenerator(checkpoint_cPrevLocation.x, checkpoint_cPrevLocation.y);
             checkpoint_cPrevLocation = new_position;
 
             checkpoint_cPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointD")
         {
-            Vector2 new_position = new Vector2(checkpoint_dPrevLocation.x + RandomGenerator(), checkpoint_dPrevLocation.y + RandomGenerator());
+            Vector2 new_position = RandomGenerator(checkpoint_dPrevLocation.x, checkpoint_dPrevLocation.y);
             checkpoint_dPrevLocation = new_position;
 
             checkpoint_dPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointE")
         {
-            Vector2 new_position = new Vector2(checkpoint_ePrevLocation.x + RandomGenerator(), checkpoint_ePrevLocation.y + RandomGenerator());
+            Vector2 new_position = RandomGenerator(checkpoint_ePrevLocation.x, checkpoint_ePrevLocation.y);
             checkpoint_ePrevLocation = new_position;
 
             checkpoint_ePrefab.transform.position = new_position;
         }
         else if(name == "CheckpointF")
         {
-            Vector2 new_position = new Vector2(checkpoint_fPrevLocation.x + RandomGenerator(), checkpoint_fPrevLocation.y + RandomGenerator());
+            Vector2 new_position = RandomGenerator(checkpoint_fPrevLocation.x, checkpoint_fPrevLocation.y);
             checkpoint_fPrevLocation = new_position;
 
             checkpoint_fPrefab.transform.position = new_position;
@@ -341,20 +341,67 @@ public class GlobalBehavior : MonoBehaviour
         }
     }
 
-    private float RandomGenerator()
+    private Vector2 RandomGenerator(float prev_positionx, float prev_positiony)
     {
         int decider_num = Random.Range(0, 2);
+        float random_x = 0f;
+        float random_y = 0f;
 
+        //do random x first
         if(decider_num == 0)
         {
-            Debug.Log("-15");
-            return -15f;
+            Debug.Log("x: -15");
+            random_x = -15f;
         }
         else
         {
-            Debug.Log("15");
-            return 15f;
+            Debug.Log("x: 15");
+            random_x = 15f;
         }
+
+        int decider_numy = Random.Range(0, 2);
+        //now do random y
+        if(decider_numy == 0)
+        {
+            Debug.Log("y: -15");
+            random_y = -15f;
+        }
+        else
+        {
+            Debug.Log("y: 15");
+            random_y = 15f;
+        }
+
+        //check if in bounds
+        //if the new x coordinate is bigger than max x
+        if(prev_positionx + random_x >= mWorldMax.x)
+        {
+            Debug.Log("new x: " + random_x);
+            random_x = -15f;
+        }
+
+        //if the new x coordinate is less than min x
+        if(prev_positionx + random_x <= mWorldMin.x)
+        {
+            Debug.Log("new x: " + random_x);
+            random_x = 15f;
+        }
+
+        //if the new y coordinate is bigger than max y
+        if(prev_positiony + random_y >= mWorldMax.y)
+        {
+            Debug.Log("new y: " + random_y);
+            random_y = -15f;
+        }
+
+        //if the new y coordinate is less than min y
+        if(prev_positiony + random_y <= mWorldMin.y)
+        {
+            Debug.Log("new y: " + random_y);
+            random_y = 15f;
+        }
+
+        return new Vector2(prev_positionx + random_x, prev_positiony + random_y);
     }
 
     public static void ToggleMovement()
