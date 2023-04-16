@@ -16,7 +16,7 @@ public class GlobalBehavior : MonoBehaviour
 
     public Text mEnemyCountUI = null;
     private int mEnemyCount = 0;
-    private const int maxNumPlanes = 1;
+    private const int maxNumPlanes = 10;
 
     public Text mEnemyDestroyedUI = null;
     private int mEnemyDestroyed = 0;
@@ -275,42 +275,42 @@ public class GlobalBehavior : MonoBehaviour
         if(name == "CheckpointA")
         {
             Vector2 new_position = RandomGenerator(checkpoint_aInitialLocation.x, checkpoint_aInitialLocation.y);
-            checkpoint_aInitialLocation = new_position;
+            //checkpoint_aInitialLocation = new_position;
 
             checkpoint_aPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointB")
         {
             Vector2 new_position = RandomGenerator(checkpoint_bInitialLocation.x, checkpoint_bInitialLocation.y);
-            checkpoint_bInitialLocation = new_position;
+            //checkpoint_bInitialLocation = new_position;
 
             checkpoint_bPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointC")
         {
             Vector2 new_position = RandomGenerator(checkpoint_cInitialLocation.x, checkpoint_cInitialLocation.y);
-            checkpoint_cInitialLocation = new_position;
+            //checkpoint_cInitialLocation = new_position;
 
             checkpoint_cPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointD")
         {
             Vector2 new_position = RandomGenerator(checkpoint_dInitialLocation.x, checkpoint_dInitialLocation.y);
-            checkpoint_dInitialLocation = new_position;
+            //checkpoint_dInitialLocation = new_position;
 
             checkpoint_dPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointE")
         {
             Vector2 new_position = RandomGenerator(checkpoint_eInitialLocation.x, checkpoint_eInitialLocation.y);
-            checkpoint_eInitialLocation = new_position;
+            //checkpoint_eInitialLocation = new_position;
 
             checkpoint_ePrefab.transform.position = new_position;
         }
         else if(name == "CheckpointF")
         {
             Vector2 new_position = RandomGenerator(checkpoint_fInitialLocation.x, checkpoint_fInitialLocation.y);
-            checkpoint_fInitialLocation = new_position;
+            //checkpoint_fInitialLocation = new_position;
 
             checkpoint_fPrefab.transform.position = new_position;
         }
@@ -374,28 +374,28 @@ public class GlobalBehavior : MonoBehaviour
 
         //check if in bounds
         //if the new x coordinate is bigger than max x
-        if(prev_positionx + random_x >= 0.8*mWorldMax.x)
+        if(prev_positionx + random_x >= mWorldMax.x)
         {
             Debug.Log("new x: " + random_x);
             random_x = -15f;
         }
 
         //if the new x coordinate is less than min x
-        if(prev_positionx + random_x <= 0.8*mWorldMin.x)
+        if(prev_positionx + random_x <= mWorldMin.x)
         {
             Debug.Log("new x: " + random_x);
             random_x = 15f;
         }
 
         //if the new y coordinate is bigger than max y
-        if(prev_positiony + random_y >= 0.8*mWorldMax.y)
+        if(prev_positiony + random_y >= mWorldMax.y)
         {
             Debug.Log("new y: " + random_y);
             random_y = -15f;
         }
 
         //if the new y coordinate is less than min y
-        if(prev_positiony + random_y <= 0.8*mWorldMin.y)
+        if(prev_positiony + random_y <= mWorldMin.y)
         {
             Debug.Log("new y: " + random_y);
             random_y = 15f;
