@@ -28,11 +28,6 @@ public class PlaneBehavior : MonoBehaviour
 
         //use getwaypoints to fill array with waypoints here
         waypoints = GlobalBehavior.sTheGlobalBehavior.GetWaypointArray();
-        //Debug.Log("Waypoints length: " + waypoints.Length);
-        for (int i = 0; i < waypoints.Length; i++)
-        {
-            //Debug.Log(waypoints[i]);
-        }
     }
 
     void Update()
@@ -189,21 +184,18 @@ public class PlaneBehavior : MonoBehaviour
                     }
                 }
             }
-            //Debug.Log("1. Nearest Checkpoint: " + nearestCheckpoint);
 
             // Move the plane towards the nearest checkpoint
             if (nearestCheckpoint != null)
             {
-                Vector3 dir = (nearestCheckpoint.transform.position - planePos).normalized;
-                Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
-                transform.position = newPosition;
+                Vector3 direction = (nearestCheckpoint.transform.position - planePos).normalized;
+                transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+                transform.Translate(Vector3.up * speed * Time.deltaTime);
 
                 if (Vector3.Distance(transform.position, nearestCheckpoint.transform.position) < 0.1f)
                 {
-                    //Debug.Log(nearestCheckpoint);
                     moveToNearestCheckpoint = false;
                     currentCheckpoint = nearestCheckpoint;
-                    //Debug.Log("2. Current Checkpoint: " + currentCheckpoint);
                 }
             }
         }
@@ -218,23 +210,13 @@ public class PlaneBehavior : MonoBehaviour
     {
         //initilize the variable
         int nextCheckpointIndex = 0;
-        //Debug.Log("1. Current Checkpoint: " + currentCheckpoint);
+
         // Get the current position of the plane
         Vector3 planePos = transform.position;
         currentCheckpointIndex = Array.IndexOf(waypoints, currentCheckpoint);
-        //Debug.Log("2. Current Checkpoint Index: " + currentCheckpointIndex);
 
         // Move to the next checkpoint
         nextCheckpointIndex = (currentCheckpointIndex + 1);
-        
-        /* if(!RandomMode)//if random mode is off
-        {
-            nextCheckpointIndex = (currentCheckpointIndex + 1);
-        }
-        else //then random mode is on
-        {
-            nextCheckpointIndex = RandomIndex();
-        } */
         
         if (nextCheckpointIndex >= waypoints.Length)
         {
@@ -244,16 +226,13 @@ public class PlaneBehavior : MonoBehaviour
         GameObject nextCheckpoint = waypoints[nextCheckpointIndex];
 
         // Move the plane towards the next checkpoint
-        Vector3 dir = (nextCheckpoint.transform.position - transform.position).normalized;
-        //Debug.Log("3. Next Checkpoint: " + nextCheckpoint);
-        //Debug.Log("4. Next Checkpoint Index: " + nextCheckpointIndex);
-        Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
-        transform.position = newPosition;
+        Vector3 direction = (nextCheckpoint.transform.position - transform.position).normalized;
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+        transform.Translate(Vector3.up * speed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, nextCheckpoint.transform.position) < 0.1f)
         {
             // Move to the next checkpoint
-            //currentCheckpointIndex = nextCheckpointIndex;
 
             if(!RandomMode)
             {
@@ -269,8 +248,6 @@ public class PlaneBehavior : MonoBehaviour
                 currentCheckpointIndex = 0;
             }
             currentCheckpoint = waypoints[currentCheckpointIndex];
-            //Debug.Log("5. Current Checkpoint: " + currentCheckpoint);
-            //Debug.Log("6. Current Checkpoint Index: " + currentCheckpointIndex);
         }
     }
 
