@@ -225,14 +225,16 @@ public class PlaneBehavior : MonoBehaviour
         //Debug.Log("2. Current Checkpoint Index: " + currentCheckpointIndex);
 
         // Move to the next checkpoint
-        if(!RandomMode)//if random mode is off
+        nextCheckpointIndex = (currentCheckpointIndex + 1);
+        
+        /* if(!RandomMode)//if random mode is off
         {
             nextCheckpointIndex = (currentCheckpointIndex + 1);
         }
         else //then random mode is on
         {
             nextCheckpointIndex = RandomIndex();
-        }
+        } */
         
         if (nextCheckpointIndex >= waypoints.Length)
         {
@@ -251,10 +253,11 @@ public class PlaneBehavior : MonoBehaviour
         if (Vector3.Distance(transform.position, nextCheckpoint.transform.position) < 0.1f)
         {
             // Move to the next checkpoint
-            // Move to the next checkpoint
+            //currentCheckpointIndex = nextCheckpointIndex;
+
             if(!RandomMode)
             {
-                currentCheckpointIndex++;
+                currentCheckpointIndex = nextCheckpointIndex;
             }
             else
             {
