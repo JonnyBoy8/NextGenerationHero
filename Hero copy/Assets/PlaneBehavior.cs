@@ -6,11 +6,21 @@ public class PlaneBehavior : MonoBehaviour
 {
     public float speed = 10.0f;
     public bool moveAroundBoundary = false;
+    public bool moveToCheckpoint = true;
+
+    private GlobalBehavior globalBehavior;
+
+    void Start()
+    {
+        // Get the global behavior script
+        globalBehavior = FindObjectOfType<GlobalBehavior>();
+    }
 
     void Update()
     {
         HandleInput();
         Move();
+        MoveToNearestCheckpoint(gameObject, globalBehavior);
     }
 
     private void OnTriggerEnter2D(Collider2D hitinfo)
@@ -65,28 +75,34 @@ public class PlaneBehavior : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKey(KeyCode.P))
         {
-            moveAroundBoundary = !moveAroundBoundary;
+            GlobalBehavior.ToggleMovement();
         }
     }
 
-    void Move()
+    public void Move()
     {
-        if (moveAroundBoundary == true)
+        if (moveAroundBoundary)
         {
-            // move the enemy up until it reaches the world bounds
+            // Move around the boundary
             transform.Translate(Vector3.up * speed * Time.deltaTime);
 
-            // check if the enemy is outside of the world bounds
+            // Check if the plane is outside the world bounds
             if (!IsInsideWorldBounds(transform.position))
             {
-                // find a new direction within the world bounds
+                // Find a new direction within the world bounds
                 Vector3 newDirection = GetRandomDirectionWithinWorldBounds();
                 transform.up = newDirection;
             }
         }
+        else
+        {
+            // Move towards the nearest checkpoint
+            MoveToNearestCheckpoint(gameObject, globalBehavior);
+        }
     }
+
 
     bool IsInsideWorldBounds(Vector3 position)
     {
@@ -109,5 +125,36 @@ public class PlaneBehavior : MonoBehaviour
         float y = Random.Range(-1f, 1f);
         Vector3 direction = new Vector3(x, y, 0).normalized;
         return direction;
+    }
+
+    private void MoveToNearestCheckpoint(GameObject plane, GlobalBehavior globalBehavior)
+    {
+        // Get the current position of the plane
+        Vector3 planePos = plane.transform.position;
+
+        // Find the nearest checkpoint to the plane
+        GameObject nearestCheckpoint = null;
+        float minDistance = float.MaxValue;
+
+        if (globalBehavior != null && globalBehavior.waypoints != null)
+        {
+            foreach (GameObject checkpoint in globalBehavior.waypoints)
+            {
+                float distance = Vector3.Distance(planePos, checkpoint.transform.position);
+                if (distance < minDistance)
+                {
+                    nearestCheckpoint = checkpoint;
+                    minDistance = distance;
+                }
+            }
+        }
+
+        // Move the plane towards the nearest checkpoint
+        if (nearestCheckpoint != null)
+        {
+            Vector3 dir = (nearestCheckpoint.transform.position - planePos).normalized;
+            Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
+            plane.transform.position = newPosition;
+        }
     }
 }

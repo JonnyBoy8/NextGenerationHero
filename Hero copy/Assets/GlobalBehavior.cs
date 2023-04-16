@@ -45,8 +45,10 @@ public class GlobalBehavior : MonoBehaviour
     private Vector2 checkpoint_ePrevLocation = new Vector2(0f, 0f);
     private Vector2 checkpoint_fPrevLocation = new Vector2(0f, 0f);
 
+    public static bool moveAroundBoundary = false;
+
     //array to hold waypoints
-    GameObject[] waypoints;
+    public GameObject[] waypoints;
 
     // Start is called before the first frame update
     void Start()
@@ -243,6 +245,8 @@ public class GlobalBehavior : MonoBehaviour
         //create a plane at that location
         GameObject new_plane = Instantiate(planePrefab, position, Quaternion.identity);
         IncreaseEnemyCountUI();
+        PlaneBehavior planeBehavior = new_plane.GetComponent<PlaneBehavior>();
+        planeBehavior.Move();
     }
 
     //ONLY USED AT START OF GLOBAL BEHAVIOR
@@ -384,7 +388,10 @@ public class GlobalBehavior : MonoBehaviour
             Debug.Log("15");
             return 15f;
         }
+    }
 
-
+    public static void ToggleMovement()
+    {
+        moveAroundBoundary = !moveAroundBoundary;
     }
 }

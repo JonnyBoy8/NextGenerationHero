@@ -3,7 +3,10 @@ guid: d3137fea4d2284f94985173d8dc8e31c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - eggSpawnPoint: {instanceID: 0}
+  - eggPrefab: {fileID: 475693280076637257, guid: 3cf62e477ef4444ca92cadd1380c2984, type: 3}
+  - cooldownBar: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

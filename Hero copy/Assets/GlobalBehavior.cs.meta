@@ -3,7 +3,19 @@ guid: b7030d4f974cc4c6e834388e58285cbe
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - planePrefab: {fileID: 4320042576046149175, guid: cc5fa623919df465f827cacb4f3f4c1c, type: 3}
+  - mHeroModeUI: {instanceID: 0}
+  - mHeroCollideUI: {instanceID: 0}
+  - mEnemyCountUI: {instanceID: 0}
+  - mEnemyDestroyedUI: {instanceID: 0}
+  - mEggCountUI: {instanceID: 0}
+  - checkpoint_aPrefab: {fileID: 1823304396435583342, guid: e8ebc8f45d90d4895b5dd5f41bafec2a, type: 3}
+  - checkpoint_bPrefab: {fileID: 7915820153914368498, guid: cf310a0e9ddb34862a67e87d72aca68b, type: 3}
+  - checkpoint_cPrefab: {fileID: 8240562421351974257, guid: d22c053aebaf84edca019210d98f87d0, type: 3}
+  - checkpoint_dPrefab: {fileID: 5165133879053818050, guid: d128c223396f7449aa53d8c907cc02f5, type: 3}
+  - checkpoint_ePrefab: {fileID: 2819880260747057872, guid: 7081001c343ce400ea25035caf45f5ce, type: 3}
+  - checkpoint_fPrefab: {fileID: 7556352834126139385, guid: 0a0c95597d0ce4b9687926f02fcfe7ca, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
