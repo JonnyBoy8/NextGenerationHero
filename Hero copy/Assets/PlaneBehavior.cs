@@ -11,10 +11,17 @@ public class PlaneBehavior : MonoBehaviour
 
     private GlobalBehavior globalBehavior;
 
+    //create new waypoints array to hold waypoints in
+    private GameObject[] waypoints;
+
     void Start()
     {
         // Get the global behavior script
         globalBehavior = FindObjectOfType<GlobalBehavior>();
+
+        //use getwaypoints to fill array with waypoints here
+        waypoints = GlobalBehavior.sTheGlobalBehavior.GetWaypointArray();
+        //Debug.Log("Waypoints length: " + waypoints.Length);
     }
 
     void Update()
@@ -194,5 +201,12 @@ public class PlaneBehavior : MonoBehaviour
         Debug.Log(nextCheckpoint.transform.position);
         Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
         plane.transform.position = newPosition;
+    }
+
+    //copied code from prof example
+    private void PointAtPosition(Vector3 p, float r)
+    {
+        Vector3 v = p - transform.position;
+        transform.up = Vector3.LerpUnclamped(transform.up, v, r);
     }
 }

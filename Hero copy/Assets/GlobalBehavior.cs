@@ -354,4 +354,9 @@ public class GlobalBehavior : MonoBehaviour
     {
         moveAroundBoundary = !moveAroundBoundary;
     }
+
+    public GameObject[] GetWaypointArray()
+    {
+        return waypoints;
+    }
 }
