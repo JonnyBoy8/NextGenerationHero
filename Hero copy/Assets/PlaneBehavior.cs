@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlaneBehavior : MonoBehaviour
@@ -21,6 +22,7 @@ public class PlaneBehavior : MonoBehaviour
         HandleInput();
         Move();
         MoveToNearestCheckpoint(gameObject, globalBehavior);
+        MoveToNextCheckpoint(gameObject, globalBehavior, gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D hitinfo)
@@ -121,8 +123,8 @@ public class PlaneBehavior : MonoBehaviour
 
     Vector3 GetRandomDirectionWithinWorldBounds()
     {
-        float x = Random.Range(-1f, 1f);
-        float y = Random.Range(-1f, 1f);
+        float x = UnityEngine.Random.Range(-1f, 1f);
+        float y = UnityEngine.Random.Range(-1f, 1f);
         Vector3 direction = new Vector3(x, y, 0).normalized;
         return direction;
     }
@@ -130,38 +132,65 @@ public class PlaneBehavior : MonoBehaviour
     //Moves to Nearest Checkpoint from spawn
     private void MoveToNearestCheckpoint(GameObject plane, GlobalBehavior globalBehavior)
     {
-        // Get the current position of the plane
-        Vector3 planePos = plane.transform.position;
-
-        // Find the nearest checkpoint to the plane
-        GameObject nearestCheckpoint = null;
-        float minDistance = float.MaxValue;
-
-        if (globalBehavior != null && globalBehavior.waypoints != null)
+        if (moveToCheckpoint == true)
         {
-            foreach (GameObject checkpoint in globalBehavior.waypoints)
+            // Get the current position of the plane
+            Vector3 planePos = plane.transform.position;
+
+            // Find the nearest checkpoint to the plane
+            GameObject nearestCheckpoint = null;
+            float minDistance = float.MaxValue;
+
+            if (globalBehavior != null && globalBehavior.waypoints != null)
             {
-                float distance = Vector3.Distance(planePos, checkpoint.transform.position);
-                if (distance < minDistance)
+                foreach (GameObject checkpoint in globalBehavior.waypoints)
                 {
-                    nearestCheckpoint = checkpoint;
-                    minDistance = distance;
+                    float distance = Vector3.Distance(planePos, checkpoint.transform.position);
+                    if (distance < minDistance)
+                    {
+                        nearestCheckpoint = checkpoint;
+                        minDistance = distance;
+                    }
                 }
             }
-        }
 
-        // Move the plane towards the nearest checkpoint
-        if (nearestCheckpoint != null)
-        {
-            Vector3 dir = (nearestCheckpoint.transform.position - planePos).normalized;
-            Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
-            plane.transform.position = newPosition;
+            // Move the plane towards the nearest checkpoint
+            if (nearestCheckpoint != null)
+            {
+                Vector3 dir = (nearestCheckpoint.transform.position - planePos).normalized;
+                Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
+                plane.transform.position = newPosition;
+
+                if (Vector3.Distance(plane.transform.position, nearestCheckpoint.transform.position) < 0.1f)
+                {
+                    //MoveToNextCheckpoint(plane, globalBehavior, nearestCheckpoint);
+                    moveToCheckpoint = false;
+                }
+            }
         }
     }
 
     //Moves to next checkpoint in waypoints array.
-    private void MoveToNextCheckpoint(GameObject plane, GlobalBehavior globalBehavior)
+    private void MoveToNextCheckpoint(GameObject plane, GlobalBehavior globalBehavior, GameObject currentCheckpoint)
     {
+        Debug.Log("Move2CP");
+        // Get the current position of the plane
+        Vector3 planePos = plane.transform.position;
+        int currentCheckpointIndex = Array.IndexOf(globalBehavior.waypoints, currentCheckpoint);
+
+        // Move to the next checkpoint
+        int nextCheckpointIndex = (currentCheckpointIndex + 1);
+        if (nextCheckpointIndex >= globalBehavior.waypoints.Length)
+        {
+            nextCheckpointIndex = 0;
+        }
+        GameObject nextCheckpoint = globalBehavior.waypoints[nextCheckpointIndex];
+
+        // Move the plane towards the next checkpoint
+        Vector3 dir = (nextCheckpoint.transform.position - currentCheckpoint.transform.position).normalized;
+        Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
+        plane.transform.position = newPosition;
+
 
     }
 }
