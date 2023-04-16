@@ -66,7 +66,7 @@ public class GlobalBehavior : MonoBehaviour
             CreatePlane();
         }
 
-        SpawnFirstCheckpoints();
+        FirstWaypointLocation();
 
         //fill the array with waypoints at first start
         waypoints = GameObject.FindGameObjectsWithTag("Checkpoint");
@@ -251,101 +251,61 @@ public class GlobalBehavior : MonoBehaviour
 
     //ONLY USED AT START OF GLOBAL BEHAVIOR
     //spawns in the locations of the checkpoints
-    private void SpawnFirstCheckpoints()
+    private void FirstWaypointLocation()
     {
-        //SPAWN CHECKPOINT A
-        //create a position of the plane
-        Vector2 poistion = new Vector2(mWorldMin.x / 2f, mWorldMax.y / 2f);
-        checkpoint_aPrevLocation = poistion;
+        checkpoint_aPrevLocation = checkpoint_aPrefab.transform.position;
+        checkpoint_bPrevLocation = checkpoint_bPrefab.transform.position;
+        checkpoint_cPrevLocation = checkpoint_cPrefab.transform.position;
+        checkpoint_dPrevLocation = checkpoint_dPrefab.transform.position;
+        checkpoint_ePrevLocation = checkpoint_ePrefab.transform.position;
+        checkpoint_fPrevLocation = checkpoint_fPrefab.transform.position;
 
-        //create a plane at that location
-        GameObject new_plane = Instantiate(checkpoint_aPrefab, poistion, Quaternion.identity);  
-
-        //SPAWN CHECKPOINT B
-        //create a position of the plane
-        poistion = new Vector2(mWorldMax.x / 2f, mWorldMin.y / 2f);
-        checkpoint_bPrevLocation = poistion;
-
-        //create a plane at that location
-        new_plane = Instantiate(checkpoint_bPrefab, poistion, Quaternion.identity); 
-
-        //SPAWN CHECKPOINT C
-        //create a position of the plane
-        poistion = new Vector2(mWorldMax.x / 4f, 0f);
-        checkpoint_cPrevLocation = poistion;
-
-        //create a plane at that location
-        new_plane = Instantiate(checkpoint_cPrefab, poistion, Quaternion.identity); 
-
-        //SPAWN CHECKPOINT D
-        //create a position of the plane
-        poistion = new Vector2(mWorldMin.x / 2f, mWorldMin.y / 2f);
-        checkpoint_dPrevLocation = poistion;
-
-        //create a plane at that location
-        new_plane = Instantiate(checkpoint_dPrefab, poistion, Quaternion.identity); 
-
-        //SPAWN CHECKPOINT E
-        //create a position of the plane
-        poistion = new Vector2(mWorldMax.x / 2f, mWorldMax.y / 2f);
-        checkpoint_ePrevLocation = poistion;
-
-        //create a plane at that location
-        new_plane = Instantiate(checkpoint_ePrefab, poistion, Quaternion.identity); 
-
-        //SPAWN CHECKPOINT F
-        //create a position of the plane
-        poistion = new Vector2(mWorldMin.x / 4f, 0f);
-        checkpoint_fPrevLocation = poistion;
-
-        //create a plane at that location
-        new_plane = Instantiate(checkpoint_fPrefab, poistion, Quaternion.identity); 
     }
 
     //takes in the name of the destroyed sprite, then spawns a new one +- 15
     public void SpawnNewCheckpoint(string name)
     {
-        if(name == "CheckpointA(Clone)")
+        if(name == "CheckpointA")
         {
             Vector2 new_position = new Vector2(checkpoint_aPrevLocation.x + RandomGenerator(), checkpoint_aPrevLocation.y + RandomGenerator());
             checkpoint_aPrevLocation = new_position;
 
-            GameObject new_checkpoint = Instantiate(checkpoint_aPrefab, new_position, Quaternion.identity);
+            checkpoint_aPrefab.transform.position = new_position;
         }
-        else if(name == "CheckpointB(Clone)")
+        else if(name == "CheckpointB")
         {
             Vector2 new_position = new Vector2(checkpoint_bPrevLocation.x + RandomGenerator(), checkpoint_bPrevLocation.y + RandomGenerator());
             checkpoint_bPrevLocation = new_position;
 
-            GameObject new_checkpoint = Instantiate(checkpoint_bPrefab, new_position, Quaternion.identity);
+            checkpoint_bPrefab.transform.position = new_position;
         }
-        else if(name == "CheckpointC(Clone)")
+        else if(name == "CheckpointC")
         {
             Vector2 new_position = new Vector2(checkpoint_cPrevLocation.x + RandomGenerator(), checkpoint_cPrevLocation.y + RandomGenerator());
             checkpoint_cPrevLocation = new_position;
 
-            GameObject new_checkpoint = Instantiate(checkpoint_cPrefab, new_position, Quaternion.identity);
+            checkpoint_cPrefab.transform.position = new_position;
         }
-        else if(name == "CheckpointD(Clone)")
+        else if(name == "CheckpointD")
         {
             Vector2 new_position = new Vector2(checkpoint_dPrevLocation.x + RandomGenerator(), checkpoint_dPrevLocation.y + RandomGenerator());
             checkpoint_dPrevLocation = new_position;
 
-            GameObject new_checkpoint = Instantiate(checkpoint_dPrefab, new_position, Quaternion.identity);
+            checkpoint_dPrefab.transform.position = new_position;
         }
-        else if(name == "CheckpointE(Clone)")
+        else if(name == "CheckpointE")
         {
             Vector2 new_position = new Vector2(checkpoint_ePrevLocation.x + RandomGenerator(), checkpoint_ePrevLocation.y + RandomGenerator());
             checkpoint_ePrevLocation = new_position;
 
-            GameObject new_checkpoint = Instantiate(checkpoint_ePrefab, new_position, Quaternion.identity);
+            checkpoint_ePrefab.transform.position = new_position;
         }
-        else if(name == "CheckpointF(Clone)")
+        else if(name == "CheckpointF")
         {
             Vector2 new_position = new Vector2(checkpoint_fPrevLocation.x + RandomGenerator(), checkpoint_fPrevLocation.y + RandomGenerator());
             checkpoint_fPrevLocation = new_position;
 
-            GameObject new_checkpoint = Instantiate(checkpoint_fPrefab, new_position, Quaternion.identity);
+            checkpoint_fPrefab.transform.position = new_position;
         }
     }
 

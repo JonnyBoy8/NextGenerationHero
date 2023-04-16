@@ -31,7 +31,7 @@ public class CheckpointBehavior : MonoBehaviour
     }
 
     private void UpdateColor()
-    {
+    {   
         SpriteRenderer checkpoint = GetComponent<SpriteRenderer>();
         Color current_color = checkpoint.color;
         current_color.a -= checkpoint_color_adjuster;
@@ -44,7 +44,9 @@ public class CheckpointBehavior : MonoBehaviour
             string checkpoint_name = checkpoint.name;
             GlobalBehavior.sTheGlobalBehavior.SpawnNewCheckpoint(checkpoint_name);
 
-            Destroy(gameObject);
+            current_color.a = checkpoint_color;
+            checkpoint.color = current_color;
+            //Destroy(gameObject);
         }
     }
 }
