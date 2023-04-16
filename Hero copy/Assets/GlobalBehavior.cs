@@ -39,12 +39,12 @@ public class GlobalBehavior : MonoBehaviour
     public GameObject checkpoint_ePrefab;
     public GameObject checkpoint_fPrefab;
 
-    private Vector2 checkpoint_aPrevLocation = new Vector2(0f, 0f);
-    private Vector2 checkpoint_bPrevLocation = new Vector2(0f, 0f);
-    private Vector2 checkpoint_cPrevLocation = new Vector2(0f, 0f);
-    private Vector2 checkpoint_dPrevLocation = new Vector2(0f, 0f);
-    private Vector2 checkpoint_ePrevLocation = new Vector2(0f, 0f);
-    private Vector2 checkpoint_fPrevLocation = new Vector2(0f, 0f);
+    private Vector2 checkpoint_aInitialLocation = new Vector2(0f, 0f);
+    private Vector2 checkpoint_bInitialLocation = new Vector2(0f, 0f);
+    private Vector2 checkpoint_cInitialLocation = new Vector2(0f, 0f);
+    private Vector2 checkpoint_dInitialLocation = new Vector2(0f, 0f);
+    private Vector2 checkpoint_eInitialLocation = new Vector2(0f, 0f);
+    private Vector2 checkpoint_fInitialLocation = new Vector2(0f, 0f);
 
     public static bool moveAroundBoundary = false;
 
@@ -260,12 +260,12 @@ public class GlobalBehavior : MonoBehaviour
     //spawns in the locations of the checkpoints
     private void FirstWaypointLocation()
     {
-        checkpoint_aPrevLocation = checkpoint_aPrefab.transform.position;
-        checkpoint_bPrevLocation = checkpoint_bPrefab.transform.position;
-        checkpoint_cPrevLocation = checkpoint_cPrefab.transform.position;
-        checkpoint_dPrevLocation = checkpoint_dPrefab.transform.position;
-        checkpoint_ePrevLocation = checkpoint_ePrefab.transform.position;
-        checkpoint_fPrevLocation = checkpoint_fPrefab.transform.position;
+        checkpoint_aInitialLocation = checkpoint_aPrefab.transform.position;
+        checkpoint_bInitialLocation = checkpoint_bPrefab.transform.position;
+        checkpoint_cInitialLocation = checkpoint_cPrefab.transform.position;
+        checkpoint_dInitialLocation = checkpoint_dPrefab.transform.position;
+        checkpoint_eInitialLocation = checkpoint_ePrefab.transform.position;
+        checkpoint_fInitialLocation = checkpoint_fPrefab.transform.position;
 
     }
 
@@ -274,43 +274,43 @@ public class GlobalBehavior : MonoBehaviour
     {
         if(name == "CheckpointA")
         {
-            Vector2 new_position = RandomGenerator(checkpoint_aPrevLocation.x, checkpoint_aPrevLocation.y);
-            checkpoint_aPrevLocation = new_position;
+            Vector2 new_position = RandomGenerator(checkpoint_aInitialLocation.x, checkpoint_aInitialLocation.y);
+            checkpoint_aInitialLocation = new_position;
 
             checkpoint_aPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointB")
         {
-            Vector2 new_position = RandomGenerator(checkpoint_bPrevLocation.x, checkpoint_bPrevLocation.y);
-            checkpoint_bPrevLocation = new_position;
+            Vector2 new_position = RandomGenerator(checkpoint_bInitialLocation.x, checkpoint_bInitialLocation.y);
+            checkpoint_bInitialLocation = new_position;
 
             checkpoint_bPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointC")
         {
-            Vector2 new_position = RandomGenerator(checkpoint_cPrevLocation.x, checkpoint_cPrevLocation.y);
-            checkpoint_cPrevLocation = new_position;
+            Vector2 new_position = RandomGenerator(checkpoint_cInitialLocation.x, checkpoint_cInitialLocation.y);
+            checkpoint_cInitialLocation = new_position;
 
             checkpoint_cPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointD")
         {
-            Vector2 new_position = RandomGenerator(checkpoint_dPrevLocation.x, checkpoint_dPrevLocation.y);
-            checkpoint_dPrevLocation = new_position;
+            Vector2 new_position = RandomGenerator(checkpoint_dInitialLocation.x, checkpoint_dInitialLocation.y);
+            checkpoint_dInitialLocation = new_position;
 
             checkpoint_dPrefab.transform.position = new_position;
         }
         else if(name == "CheckpointE")
         {
-            Vector2 new_position = RandomGenerator(checkpoint_ePrevLocation.x, checkpoint_ePrevLocation.y);
-            checkpoint_ePrevLocation = new_position;
+            Vector2 new_position = RandomGenerator(checkpoint_eInitialLocation.x, checkpoint_eInitialLocation.y);
+            checkpoint_eInitialLocation = new_position;
 
             checkpoint_ePrefab.transform.position = new_position;
         }
         else if(name == "CheckpointF")
         {
-            Vector2 new_position = RandomGenerator(checkpoint_fPrevLocation.x, checkpoint_fPrevLocation.y);
-            checkpoint_fPrevLocation = new_position;
+            Vector2 new_position = RandomGenerator(checkpoint_fInitialLocation.x, checkpoint_fInitialLocation.y);
+            checkpoint_fInitialLocation = new_position;
 
             checkpoint_fPrefab.transform.position = new_position;
         }
