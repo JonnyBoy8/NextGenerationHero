@@ -163,7 +163,8 @@ public class PlaneBehavior : MonoBehaviour
 
                 if (Vector3.Distance(plane.transform.position, nearestCheckpoint.transform.position) < 0.1f)
                 {
-                    //MoveToNextCheckpoint(plane, globalBehavior, nearestCheckpoint);
+                    Debug.Log(nearestCheckpoint);
+                    MoveToNextCheckpoint(plane, globalBehavior, nearestCheckpoint);
                     moveToCheckpoint = false;
                 }
             }
@@ -180,17 +181,18 @@ public class PlaneBehavior : MonoBehaviour
 
         // Move to the next checkpoint
         int nextCheckpointIndex = (currentCheckpointIndex + 1);
+        
         if (nextCheckpointIndex >= globalBehavior.waypoints.Length)
         {
             nextCheckpointIndex = 0;
         }
+        
         GameObject nextCheckpoint = globalBehavior.waypoints[nextCheckpointIndex];
 
         // Move the plane towards the next checkpoint
         Vector3 dir = (nextCheckpoint.transform.position - currentCheckpoint.transform.position).normalized;
+        Debug.Log(nextCheckpoint.transform.position);
         Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
         plane.transform.position = newPosition;
-
-
     }
 }
