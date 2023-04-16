@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EggBehavior : MonoBehaviour
 {
+    // hi
     void Start()
     {
 
