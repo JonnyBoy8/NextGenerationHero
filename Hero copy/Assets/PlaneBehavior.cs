@@ -92,11 +92,17 @@ public class PlaneBehavior : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             
             ToggleMovement();
         }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            
+        }
+
     }
 
     public void Move()
