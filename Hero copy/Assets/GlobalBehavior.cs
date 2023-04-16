@@ -14,15 +14,17 @@ public class GlobalBehavior : MonoBehaviour
     public Text mHeroCollideUI = null;
     private int mHeroCollide = 0;
 
-    public Text mEnemyCountUI = null;
-    private int mEnemyCount = 0;
+    // public Text mEnemyCountUI = null;
+    // private int mEnemyCount = 0;
     private const int maxNumPlanes = 10;
 
-    public Text mEnemyDestroyedUI = null;
-    private int mEnemyDestroyed = 0;
+    // public Text mEnemyDestroyedUI = null;
+    // private int mEnemyDestroyed = 0;
 
     public Text mEggCountUI = null;
     private int mEggCount = 0;
+
+    public Text mWaypointModeUI = null;
 
     //world bound code
     private Bounds mWorldBound;
@@ -173,46 +175,56 @@ public class GlobalBehavior : MonoBehaviour
     //UI METHODS
     public void UpdateToMouseUI()
     {
-        mHeroModeUI.text = "Mouse Mode";
+        mHeroModeUI.text = "Drive(Mouse)";
     }
 
     public void UpdateToKeyboardUI()
     {
-        mHeroModeUI.text = "Keyboard Mode";
+        mHeroModeUI.text = "Drive(Keyboard)";
     }
 
     public void UpdateHeroCollideUI()
     {
         mHeroCollide++;
 
-        string to_text = "Enemy Collisions: " + mHeroCollide.ToString();
+        string to_text = "TouchedEnemy: " + mHeroCollide.ToString();
         mHeroCollideUI.text = to_text;
     }
 
-    public void ReduceEnemyCountUI()
+    public void UpdateWaypointRandomUI()
     {
-        mEnemyCount--;
-        string to_text = "Shown: " + mEnemyCount.ToString();
-
-        mEnemyCountUI.text = to_text;
+        mWaypointModeUI.text = "Waypoints(Random)";
     }
 
-    public void IncreaseEnemyCountUI()
+    public void UpdateWaypointSeqUI()
     {
-        mEnemyCount++;
-        string to_text = "Shown: " + mEnemyCount.ToString();
-
-        mEnemyCountUI.text = to_text;
+        mWaypointModeUI.text = "Waypoints(Sequence)";
     }
 
-    public void UpdateEnemyDestroyUI()
-    {
-        mEnemyDestroyed++;
+    // public void ReduceEnemyCountUI()
+    // {
+    //     mEnemyCount--;
+    //     string to_text = "Shown: " + mEnemyCount.ToString();
 
-        string to_text = "Destroyed: " + mEnemyDestroyed.ToString();
+    //     mEnemyCountUI.text = to_text;
+    // }
 
-        mEnemyDestroyedUI.text = to_text;
-    }
+    // public void IncreaseEnemyCountUI()
+    // {
+    //     mEnemyCount++;
+    //     string to_text = "Shown: " + mEnemyCount.ToString();
+
+    //     mEnemyCountUI.text = to_text;
+    // }
+
+    // public void UpdateEnemyDestroyUI()
+    // {
+    //     mEnemyDestroyed++;
+
+    //     string to_text = "Destroyed: " + mEnemyDestroyed.ToString();
+
+    //     mEnemyDestroyedUI.text = to_text;
+    // }
 
     public void IncreaseEggCountUI()
     {
@@ -251,7 +263,7 @@ public class GlobalBehavior : MonoBehaviour
 
         //create a plane at that location
         GameObject new_plane = Instantiate(planePrefab, position, Quaternion.identity);
-        IncreaseEnemyCountUI();
+        //IncreaseEnemyCountUI();
         PlaneBehavior planeBehavior = new_plane.GetComponent<PlaneBehavior>();
         planeBehavior.Move();
     }

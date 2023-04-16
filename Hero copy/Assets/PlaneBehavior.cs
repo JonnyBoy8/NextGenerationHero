@@ -38,11 +38,13 @@ public class PlaneBehavior : MonoBehaviour
             {
                 RandomMode = true;
                 Debug.Log("random mode on");
+                GlobalBehavior.sTheGlobalBehavior.UpdateWaypointRandomUI();
             }
             else//then randommode is on
             {
                 RandomMode = false;
                 Debug.Log("random mode off");
+                GlobalBehavior.sTheGlobalBehavior.UpdateWaypointSeqUI();
             }
         }
 
@@ -57,9 +59,9 @@ public class PlaneBehavior : MonoBehaviour
         if(hitinfo.name == "Hero")
         {
             Destroy(gameObject);
-            GlobalBehavior.sTheGlobalBehavior.UpdateEnemyDestroyUI();
+            //GlobalBehavior.sTheGlobalBehavior.UpdateEnemyDestroyUI();
             GlobalBehavior.sTheGlobalBehavior.UpdateHeroCollideUI();
-            GlobalBehavior.sTheGlobalBehavior.ReduceEnemyCountUI();
+            //GlobalBehavior.sTheGlobalBehavior.ReduceEnemyCountUI();
             GlobalBehavior.sTheGlobalBehavior.CreatePlane();
         }
         else if(hitinfo.name == "Egg(Clone)") //if it gets hit by an egg, adjust the color
@@ -92,8 +94,8 @@ public class PlaneBehavior : MonoBehaviour
         //if the color gets adjusted 4 times, destroy the plane
         if(enemy.color.a <= 0.35f)
         {
-            GlobalBehavior.sTheGlobalBehavior.UpdateEnemyDestroyUI();
-            GlobalBehavior.sTheGlobalBehavior.ReduceEnemyCountUI();
+            //GlobalBehavior.sTheGlobalBehavior.UpdateEnemyDestroyUI();
+            //GlobalBehavior.sTheGlobalBehavior.ReduceEnemyCountUI();
             Destroy(gameObject);
 
             //create a new plane to take its place
