@@ -17,6 +17,8 @@ public class PlaneBehavior : MonoBehaviour
     GameObject currentCheckpoint;
     GameObject plane;
 
+    int currentCheckpointIndex;
+
     void Start()
     {
         // Get the global behavior script
@@ -27,7 +29,7 @@ public class PlaneBehavior : MonoBehaviour
         //Debug.Log("Waypoints length: " + waypoints.Length);
         for (int i = 0; i < waypoints.Length; i++)
         {
-            Debug.Log(waypoints[i]);
+            //Debug.Log(waypoints[i]);
         }
     }
 
@@ -166,6 +168,7 @@ public class PlaneBehavior : MonoBehaviour
                     }
                 }
             }
+            //Debug.Log("1. Nearest Checkpoint: " + nearestCheckpoint);
 
             // Move the plane towards the nearest checkpoint
             if (nearestCheckpoint != null)
@@ -179,6 +182,7 @@ public class PlaneBehavior : MonoBehaviour
                     //Debug.Log(nearestCheckpoint);
                     moveToCheckpoint = false;
                     currentCheckpoint = nearestCheckpoint;
+                    //Debug.Log("2. Current Checkpoint: " + currentCheckpoint);
                 }
             }
         }
@@ -191,10 +195,11 @@ public class PlaneBehavior : MonoBehaviour
     //Moves to next checkpoint in waypoints array.
     private void MoveToNextCheckpoint()
     {
-        //Debug.Log(currentCheckpoint);
+        Debug.Log("1. Current Checkpoint: " + currentCheckpoint);
         // Get the current position of the plane
         Vector3 planePos = transform.position;
-        int currentCheckpointIndex = Array.IndexOf(waypoints, currentCheckpoint);
+        currentCheckpointIndex = Array.IndexOf(waypoints, currentCheckpoint);
+        Debug.Log("2. Current Checkpoint Index: " + currentCheckpointIndex);
 
         // Move to the next checkpoint
         int nextCheckpointIndex = (currentCheckpointIndex + 1);
@@ -208,14 +213,13 @@ public class PlaneBehavior : MonoBehaviour
 
         // Move the plane towards the next checkpoint
         Vector3 dir = (nextCheckpoint.transform.position - transform.position).normalized;
-        //Debug.Log(nextCheckpoint.transform.position);
-        //Debug.Log(nextCheckpoint);
+        Debug.Log("3. Next Checkpoint: " + nextCheckpoint);
+        Debug.Log("4. Next Checkpoint Index: " + nextCheckpointIndex);
         Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
         transform.position = newPosition;
 
-        if (Vector3.Distance(transform.position, currentCheckpoint.transform.position) < 0.1f)
+        if (Vector3.Distance(transform.position, nextCheckpoint.transform.position) < 0.1f)
         {
-            //Debug.Log(currentCheckpoint);
             // Move to the next checkpoint
             currentCheckpointIndex++;
 
@@ -224,7 +228,8 @@ public class PlaneBehavior : MonoBehaviour
                 currentCheckpointIndex = 0;
             }
             currentCheckpoint = waypoints[currentCheckpointIndex];
-
+            Debug.Log("5. Current Checkpoint: " + currentCheckpoint);
+            Debug.Log("6. Current Checkpoint Index: " + currentCheckpointIndex);
         }
     }
 

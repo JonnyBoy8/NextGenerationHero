@@ -16,6 +16,7 @@ public class GlobalBehavior : MonoBehaviour
 
     public Text mEnemyCountUI = null;
     private int mEnemyCount = 0;
+    private const int maxNumPlanes = 1;
 
     public Text mEnemyDestroyedUI = null;
     private int mEnemyDestroyed = 0;
@@ -61,7 +62,7 @@ public class GlobalBehavior : MonoBehaviour
         UpdateWorldWindowBound();
 
         //call the create plane function so spawn planes in random spaces within bounds
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < maxNumPlanes; i++)
         {
             CreatePlane();
         }
