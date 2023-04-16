@@ -51,7 +51,7 @@ public class PlaneBehavior : MonoBehaviour
             GlobalBehavior.sTheGlobalBehavior.ReduceEnemyCountUI();
             GlobalBehavior.sTheGlobalBehavior.CreatePlane();
         }
-        else //if it gets hit by anything else (an egg), adjust the color
+        else if(hitinfo.name == "Egg(Clone)") //if it gets hit by an egg, adjust the color
         {
             UpdateColor();
         }
