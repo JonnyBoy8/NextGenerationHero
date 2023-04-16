@@ -70,7 +70,13 @@ public class GlobalBehavior : MonoBehaviour
         FirstWaypointLocation();
 
         //fill the array with waypoints at first start
-        waypoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+        waypoints = new GameObject[6];
+        waypoints[0] = GameObject.Find("CheckpointA");
+        waypoints[1] = GameObject.Find("CheckpointB");
+        waypoints[2] = GameObject.Find("CheckpointC");
+        waypoints[3] = GameObject.Find("CheckpointD");
+        waypoints[4] = GameObject.Find("CheckpointE");
+        waypoints[5] = GameObject.Find("CheckpointF");
     }
 
     public enum WorldBoundStatus {
