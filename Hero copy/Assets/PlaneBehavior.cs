@@ -14,6 +14,9 @@ public class PlaneBehavior : MonoBehaviour
     //create new waypoints array to hold waypoints in
     private GameObject[] waypoints;
 
+    GameObject currentCheckpoint;
+    GameObject plane;
+
     void Start()
     {
         // Get the global behavior script
@@ -22,14 +25,17 @@ public class PlaneBehavior : MonoBehaviour
         //use getwaypoints to fill array with waypoints here
         waypoints = GlobalBehavior.sTheGlobalBehavior.GetWaypointArray();
         //Debug.Log("Waypoints length: " + waypoints.Length);
+        for (int i = 0; i < waypoints.Length; i++)
+        {
+            Debug.Log(waypoints[i]);
+        }
     }
 
     void Update()
     {
         HandleInput();
         Move();
-        MoveToNearestCheckpoint(gameObject, globalBehavior);
-        MoveToNextCheckpoint(gameObject, globalBehavior, gameObject);
+        MoveToNearestCheckpoint();
     }
 
     private void OnTriggerEnter2D(Collider2D hitinfo)
@@ -108,7 +114,7 @@ public class PlaneBehavior : MonoBehaviour
         else
         {
             // Move towards the nearest checkpoint
-            MoveToNearestCheckpoint(gameObject, globalBehavior);
+            MoveToNearestCheckpoint();
         }
     }
 
@@ -137,12 +143,12 @@ public class PlaneBehavior : MonoBehaviour
     }
 
     //Moves to Nearest Checkpoint from spawn
-    private void MoveToNearestCheckpoint(GameObject plane, GlobalBehavior globalBehavior)
+    private void MoveToNearestCheckpoint()
     {
         if (moveToCheckpoint == true)
         {
             // Get the current position of the plane
-            Vector3 planePos = plane.transform.position;
+            Vector3 planePos = transform.position;
 
             // Find the nearest checkpoint to the plane
             GameObject nearestCheckpoint = null;
@@ -166,41 +172,60 @@ public class PlaneBehavior : MonoBehaviour
             {
                 Vector3 dir = (nearestCheckpoint.transform.position - planePos).normalized;
                 Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
-                plane.transform.position = newPosition;
+                transform.position = newPosition;
 
-                if (Vector3.Distance(plane.transform.position, nearestCheckpoint.transform.position) < 0.1f)
+                if (Vector3.Distance(transform.position, nearestCheckpoint.transform.position) < 0.1f)
                 {
-                    Debug.Log(nearestCheckpoint);
-                    MoveToNextCheckpoint(plane, globalBehavior, nearestCheckpoint);
+                    //Debug.Log(nearestCheckpoint);
                     moveToCheckpoint = false;
+                    currentCheckpoint = nearestCheckpoint;
                 }
             }
+        }
+        if (moveToCheckpoint == false)
+        {
+            MoveToNextCheckpoint();
         }
     }
 
     //Moves to next checkpoint in waypoints array.
-    private void MoveToNextCheckpoint(GameObject plane, GlobalBehavior globalBehavior, GameObject currentCheckpoint)
+    private void MoveToNextCheckpoint()
     {
-        Debug.Log("Move2CP");
+        //Debug.Log(currentCheckpoint);
         // Get the current position of the plane
-        Vector3 planePos = plane.transform.position;
-        int currentCheckpointIndex = Array.IndexOf(globalBehavior.waypoints, currentCheckpoint);
+        Vector3 planePos = transform.position;
+        int currentCheckpointIndex = Array.IndexOf(waypoints, currentCheckpoint);
 
         // Move to the next checkpoint
         int nextCheckpointIndex = (currentCheckpointIndex + 1);
         
-        if (nextCheckpointIndex >= globalBehavior.waypoints.Length)
+        if (nextCheckpointIndex >= waypoints.Length)
         {
             nextCheckpointIndex = 0;
         }
         
-        GameObject nextCheckpoint = globalBehavior.waypoints[nextCheckpointIndex];
+        GameObject nextCheckpoint = waypoints[nextCheckpointIndex];
 
         // Move the plane towards the next checkpoint
-        Vector3 dir = (nextCheckpoint.transform.position - currentCheckpoint.transform.position).normalized;
-        Debug.Log(nextCheckpoint.transform.position);
+        Vector3 dir = (nextCheckpoint.transform.position - transform.position).normalized;
+        //Debug.Log(nextCheckpoint.transform.position);
+        //Debug.Log(nextCheckpoint);
         Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
-        plane.transform.position = newPosition;
+        transform.position = newPosition;
+
+        if (Vector3.Distance(transform.position, currentCheckpoint.transform.position) < 0.1f)
+        {
+            //Debug.Log(currentCheckpoint);
+            // Move to the next checkpoint
+            currentCheckpointIndex++;
+
+            if (currentCheckpointIndex >= waypoints.Length)
+            {
+                currentCheckpointIndex = 0;
+            }
+            currentCheckpoint = waypoints[currentCheckpointIndex];
+
+        }
     }
 
     //copied code from prof example
