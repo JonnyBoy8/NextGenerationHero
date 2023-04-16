@@ -7,7 +7,7 @@ public class PlaneBehavior : MonoBehaviour
 {
     public float speed = 10.0f;
     public bool moveAroundBoundary = false;
-    public bool moveToCheckpoint = true;
+    public bool moveToNearestCheckpoint = true;
 
     private GlobalBehavior globalBehavior;
 
@@ -94,7 +94,8 @@ public class PlaneBehavior : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.P))
         {
-            GlobalBehavior.ToggleMovement();
+            
+            ToggleMovement();
         }
     }
 
@@ -147,7 +148,7 @@ public class PlaneBehavior : MonoBehaviour
     //Moves to Nearest Checkpoint from spawn
     private void MoveToNearestCheckpoint()
     {
-        if (moveToCheckpoint == true)
+        if (moveToNearestCheckpoint == true)
         {
             // Get the current position of the plane
             Vector3 planePos = transform.position;
@@ -180,13 +181,13 @@ public class PlaneBehavior : MonoBehaviour
                 if (Vector3.Distance(transform.position, nearestCheckpoint.transform.position) < 0.1f)
                 {
                     //Debug.Log(nearestCheckpoint);
-                    moveToCheckpoint = false;
+                    moveToNearestCheckpoint = false;
                     currentCheckpoint = nearestCheckpoint;
                     //Debug.Log("2. Current Checkpoint: " + currentCheckpoint);
                 }
             }
         }
-        if (moveToCheckpoint == false)
+        if (moveToNearestCheckpoint == false)
         {
             MoveToNextCheckpoint();
         }
@@ -195,11 +196,11 @@ public class PlaneBehavior : MonoBehaviour
     //Moves to next checkpoint in waypoints array.
     private void MoveToNextCheckpoint()
     {
-        Debug.Log("1. Current Checkpoint: " + currentCheckpoint);
+        //Debug.Log("1. Current Checkpoint: " + currentCheckpoint);
         // Get the current position of the plane
         Vector3 planePos = transform.position;
         currentCheckpointIndex = Array.IndexOf(waypoints, currentCheckpoint);
-        Debug.Log("2. Current Checkpoint Index: " + currentCheckpointIndex);
+        //Debug.Log("2. Current Checkpoint Index: " + currentCheckpointIndex);
 
         // Move to the next checkpoint
         int nextCheckpointIndex = (currentCheckpointIndex + 1);
@@ -213,8 +214,8 @@ public class PlaneBehavior : MonoBehaviour
 
         // Move the plane towards the next checkpoint
         Vector3 dir = (nextCheckpoint.transform.position - transform.position).normalized;
-        Debug.Log("3. Next Checkpoint: " + nextCheckpoint);
-        Debug.Log("4. Next Checkpoint Index: " + nextCheckpointIndex);
+        //Debug.Log("3. Next Checkpoint: " + nextCheckpoint);
+        //Debug.Log("4. Next Checkpoint Index: " + nextCheckpointIndex);
         Vector3 newPosition = planePos + dir * speed * Time.deltaTime;
         transform.position = newPosition;
 
@@ -228,8 +229,8 @@ public class PlaneBehavior : MonoBehaviour
                 currentCheckpointIndex = 0;
             }
             currentCheckpoint = waypoints[currentCheckpointIndex];
-            Debug.Log("5. Current Checkpoint: " + currentCheckpoint);
-            Debug.Log("6. Current Checkpoint Index: " + currentCheckpointIndex);
+            //Debug.Log("5. Current Checkpoint: " + currentCheckpoint);
+            //Debug.Log("6. Current Checkpoint Index: " + currentCheckpointIndex);
         }
     }
 
@@ -238,5 +239,11 @@ public class PlaneBehavior : MonoBehaviour
     {
         Vector3 v = p - transform.position;
         transform.up = Vector3.LerpUnclamped(transform.up, v, r);
+    }
+
+    private void ToggleMovement()
+    {
+        moveAroundBoundary = !moveAroundBoundary;
+        
     }
 }
